@@ -1,3 +1,4 @@
+let quadrado = document.querySelectorAll("div") // seleciona um array das 'Div's'
 const sequenciaVencedora = [
     [0,1,2], //primeira sequencia vencedora
     [3,4,5], //segunda sequencia vencedora
@@ -61,9 +62,18 @@ const vezdaMaquina = () => {
 
 /*Função que atribui funções a outras funções conectando o código*/
 const clickFn =  ($event) => {
-    turno(qNumId($event.target), 'X');
-    if(!checarVitoria())
-        vezdaMaquina();
+    //se a div estiver vazia executa
+    if ($event.target.innerHTML == ""){
+        //percorre as div com o array do queryselector
+        for(let corre of quadrado){
+            //com um click chama a função e adiciona o X
+            corre.onclick = turno(qNumId($event.target), 'X');
+        }
+        // ou seja, depois de adicional o 'x' a maquina entra no jogo
+            checarVitoria()
+            vezdaMaquina();
+    }
+    
 };
 
 /*para cada elemento q, adiciona um evento click*/
