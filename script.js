@@ -31,13 +31,13 @@ const jogadorbolinha = () => qNumId(qVazio()[Math.floor(Math.random() * qVazio()
 
 const fimDeJogo = (sequenciaVencedora) => { 
     sequenciaVencedora.forEach(_qEl => _qEl.classList.add('vencedor'));
-    alert('Acabou o Jogo. Obrigado por jogar!');
     disableListeners();
+    setTimeout( () => alert('Acabou o Jogo. Obrigado por jogar!'), 100);
     console.log('Fim de jogo', sequenciaVencedora); 
 }
 
 const checarVitoria = () => {
-    let vitoria = false;
+    let vitoria;
 
     sequenciaVencedora.forEach(_c => {
         const _grid = grid();
@@ -47,16 +47,18 @@ const checarVitoria = () => {
             fimDeJogo(sequencia);
         }
     });
-
+    console.log(vitoria + 'Teste')
     return vitoria;
 }
 
 const vezdaMaquina = () => {
     disableListeners();
     setTimeout(() => {
-        turno(jogadorbolinha(), 'O');
-        if(!checarVitoria())
+        if(!checarVitoria()) {
+            turno(jogadorbolinha(), 'O');
             enableListeners();
+            console.log("RodouVezDaMAQUINA")
+        }
     }, 100);
 }
 
@@ -70,7 +72,6 @@ const clickFn =  ($event) => {
             corre.onclick = turno(qNumId($event.target), 'X');
         }
         // ou seja, depois de adicional o 'x' a maquina entra no jogo
-            checarVitoria()
             vezdaMaquina();
     }
     
